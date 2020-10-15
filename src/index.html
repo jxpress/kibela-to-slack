@@ -114,7 +114,7 @@
             if (this.edit_comment) {
               params.push(`edit_comment=1`)
             }
-            return `${location.origin}/webhook${
+            return `${location.origin}${location.pathname}webhook${
               params.length ? '?' + params.join('&') : ''
             }`
           },
