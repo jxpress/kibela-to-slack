@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kibela to Slack webhook</title>
+    <meta name="robots" content="noindex" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link
+      href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-200 p-10 text-gray-800">
+    <div id="app" class="bg-white max-w-3xl mx-auto shadow sm:rounded-lg p-8">
+      <h1 class="text-3xl font-extrabold text-center">URL生成</h1>
+      <div class="mt-4">
+        <label for="channel" class="block leading-8 font-bold"
+          >Slackチャンネル</label
+        >
+        <input
+          id="channel"
+          v-model="channel"
+          placeholder="例) general"
+          class="px-3 py-2 block w-full rounded-md shadow-sm border border-gray-300 placeholder-gray-500 text-gray-900 focus:shadow-outline-blue focus:border-blue-300"
+        />
+      </div>
+      <div>
+        <label for="folder" class="block leading-8 mt-2 font-bold"
+          >対象フォルダ(部分一致)</label
+        >
+        <input
+          id="folder"
+          v-model="folder"
+          placeholder="例) hoge/ふが/piyo"
+          class="px-3 py-2 block w-full rounded-md shadow-sm border border-gray-300 placeholder-gray-500 text-gray-900 focus:shadow-outline-blue focus:border-blue-300"
+        />
+      </div>
+      <div>
+        <label for="pretext" class="block leading-8 mt-2 font-bold"
+          >投稿テキストのテンプレート</label
+        >
+        <input
+          id="pretext"
+          v-model="pretext"
+          placeholder="例) {author_name}が「{title}」を投稿しました"
+          class="px-3 py-2 block w-full rounded-md shadow-sm border border-gray-300 placeholder-gray-500 text-gray-900 focus:shadow-outline-blue focus:border-blue-300"
+        />
+      </div>
+      <div class="leading-8 mt-4">
+        <input
+          id="edit_comment"
+          v-model="edit_comment"
+          type="checkbox"
+          class="form-checkbox h-4 w-4"
+        />
+        <label for="edit_comment" class="font-bold"
+          >「編集コメント」がある場合のみ</label
+        >
+      </div>
+      <div class="border-t-2 mt-8 pt-8">
+        <label
+          for="url"
+          class="block leading-8 font-extrabold text-xl text-center"
+          >Kibela Webhook用URL</label
+        >
+        <div class="flex mt-4">
+          <input
+            id="url"
+            :value="url"
+            placeholder="例) {author_name}が「{title}」を投稿しました"
+            class="flex-1 px-3 py-2 w-full rounded-md shadow-sm border border-gray-600 placeholder-gray-500 text-gray-900 focus:shadow-outline-blue focus:border-blue-300 font-bold"
+            @focus="$event.target.select()"
+          />
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 rounded"
+            @click="copy"
+          >
+            コピー
+          </button>
+        </div>
+        <p class="mt-4">
+          <a
+            href="https://my.kibe.la/team/settings/outgoing_webhooks/slacks/new"
+            target="_blank"
+            class="hover:underline text-blue-500"
+            >Outgoing Webhooks 作成ページ</a
+          >
+          の「URL」の欄に上記のURLを貼り付けてください。
+        </p>
+      </div>
+    </div>
+    <script>
+      const app = new Vue({
+        el: '#app',
+        data: {
+          channel: '',
+          folder: '',
+          pretext: '',
+          edit_comment: false,
+        },
+        computed: {
+          url: function () {
+            let params = []
+            if (this.channel) {
+              params.push(`channel=${this.channel}`)
+            }
+            if (this.folder) {
+              params.push(`folder=${encodeURIComponent(this.folder)}`)
+            }
+            if (this.pretext) {
+              params.push(`pretext=${encodeURIComponent(this.pretext)}`)
+            }
+            if (this.edit_comment) {
+              params.push(`edit_comment=1`)
+            }
+            return `${location.origin}/webhook${
+              params.length ? '?' + params.join('&') : ''
+            }`
+          },
+        },
+        methods: {
+          copy: function () {
+            navigator.clipboard.writeText(this.url)
+          },
+        },
+      })
+    </script>
+  </body>
+</html>

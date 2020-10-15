@@ -1,9 +1,12 @@
 import json
 from typing import Any, Optional
 import re
+from pathlib import Path
 
 import requests
 from fastapi import FastAPI, Form
+from fastapi.responses import HTMLResponse
+
 
 from .types import Config, Item
 from .filters import filters, converters
@@ -11,6 +14,7 @@ from .config import KIBELA_API_TOKEN, KIBELA_BASE_URL, SLACK_WEBHOOK_URL
 
 
 app = FastAPI()
+
 re_comment = re.compile(f'{KIBELA_BASE_URL}[^#|]+')
 
 
@@ -50,6 +54,13 @@ def payload_to_item(payload: dict) -> Item:
                 item.title = note['title']
                 item.folder = note['folderName']
     return item
+
+
+@app.get('/', response_class=HTMLResponse)
+def index():
+    path = Path(__file__).parent / 'index.html'
+    with open(path) as f:
+        return f.read()
 
 
 @app.post("/webhook")
