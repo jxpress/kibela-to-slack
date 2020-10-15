@@ -1,0 +1,54 @@
+service: kibela-to-slack
+
+custom:
+  defaultStage: dev
+  pythonRequirements:
+    dockerizePip: false
+    noDeploy: []
+  prune:
+    automatic: true
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: ap-northeast-1
+  stage: ${opt:stage, self:custom.defaultStage}
+
+package:
+  exclude:
+    - '.cache/**'
+    - '.git/**'
+    - '.npm/**'
+    - 'node_modules/**'
+    - 'serverless.yml'
+    - 'requirements.txt'
+    - 'package.json'
+    - 'package-lock.json'
+    - 'README.md'
+    - '.envrc'
+    - '.bash_history'
+    - '.gitignore'
+    - '.python-version'
+    - '.mypy_cache/**'
+    - '.venv/**'
+    - '.pytest_cache/**'
+    - 'tests/**'
+
+functions:
+  api:
+    handler: src.lambda_handler.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+      - http:
+          path: '{proxy+}'
+          method: ANY
+    environment:
+      SLACK_WEBHOOK_URL: ${env:SLACK_WEBHOOK_URL}
+      KIBELA_BASE_URL: ${env:KIBELA_BASE_URL}
+      KIBELA_API_TOKEN: ${env:KIBELA_API_TOKEN}
+
+plugins:
+  - serverless-python-requirements
+  - serverless-prune-plugin
