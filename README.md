@@ -18,7 +18,7 @@ URL には、次のような URL を指定します。URLのドメイン部は *
 
 `https://your-deployment-url/webhook`
 
-URL パラメータを通じて、後述のオプションが利用できます。
+URL パラメータを通じて、カスタマイズできます。 `https://your-deployment-url/` から URL を生成することもできます。
 
 ### 環境変数
 
