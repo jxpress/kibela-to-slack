@@ -12,6 +12,7 @@ uvicorn = "^0.12.1"
 requests = "^2.24.0"
 mangum = "^0.10.0"
 python-multipart = "^0.0.5"
+boto3 = "^1.15.17"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.790"

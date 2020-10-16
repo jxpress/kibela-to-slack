@@ -30,6 +30,8 @@ URL パラメータを通じて、カスタマイズできます。 `https://you
 |KIBELA_BASE_URL|**コメントのフォルダごと打ち分けに場合必須**。Kibela の URL|https://XXX.kibe.la|
 |KIBELA_API_TOKEN|**コメントのフォルダごと打ち分けに場合必須**。Kibela の API の個人用アクセストークン([取得用URL](https://my.kibe.la/settings/access_tokens))|secret/AB/CDEF....|
 
+SLACK_WEBHOOK_URL と KIBELA_API_TOKEN に関しては、 SSM_ と先頭につけると AWS System Manager のパラメータから取得します(例: SSM_KIBELA_API_TOKEN=/path/to/param)。
+
 ### オプション
 
 Kibela の Outgoing Webhooks に登録する際、次のオプションを利用することができます。全てのオプションは任意です。
