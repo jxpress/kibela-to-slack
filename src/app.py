@@ -66,12 +66,14 @@ def index():
 @app.post("/webhook")
 def post_webhook(pretext: Optional[str] = None, edit_comment: Optional[Any] = None,
                  folder: Optional[str] = None, channel: Optional[str] = None,
+                 preserve_comments: Optional[Any] = None,
                  payload: str = Form(...)):
     config = Config(
         pretext=pretext,
         edit_comment=edit_comment,
         folder=folder,
-        channel=channel
+        channel=channel,
+        preserve_comments=preserve_comments
     )
     payload_dic = json.loads(payload)
     item = payload_to_item(payload_dic)

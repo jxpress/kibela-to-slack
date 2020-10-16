@@ -43,7 +43,8 @@ Kibela の Outgoing Webhooks に登録する際、次のオプションを利用
 |channel|Slack のチャンネル名|general|
 |folder|フォルダの指定(部分一致)。必ず URL エンコードをしてください|hoge/ぴよ|
 |pretext|pretext(Slack 投下時の文字列)のテンプレートです。Python の `str.format` に有効な文字列です|{author_name}が記事を作成しました|
-|edit-comment|編集コメントがある場合のみ通知します|1|
+|edit_comment|編集コメントがある場合のみ通知します|1|
+|preserve_comments|テキスト内のHTMLコメント(`<!-- -->`)を削除せず残します|1|
 
 ## デプロイ
 

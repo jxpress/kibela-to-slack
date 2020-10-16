@@ -1,5 +1,9 @@
-from .types import Config, Item
 from typing import Any, Callable, List
+import re
+
+from .types import Config, Item
+
+comment_pattern = re.compile('<!--.*?-->')
 
 
 def filter_folder(item: Item, config: Config):
@@ -25,8 +29,14 @@ def convert_channel(payload: dict, item: Item, config: Config):
         payload['channel'] = config.channel
 
 
+def convert_trim_comment(payload: dict, item: Item, config: Config):
+    if not config.preserve_comments and payload['attachments'][0]['text']:
+        payload['attachments'][0]['text'] = comment_pattern.sub(
+            '', payload['attachments'][0]['text'])
+
+
 Filter = Callable[[Item, Config], Any]
 filters: List[Filter] = [filter_folder, filter_edit_coment]
 
 Converter = Callable[[dict, Item, Config], Any]
-converters: List[Converter] = [convert_pretext, convert_channel]
+converters: List[Converter] = [convert_pretext, convert_channel, convert_trim_comment]

@@ -55,7 +55,18 @@
           class="form-checkbox h-4 w-4"
         />
         <label for="edit_comment" class="font-bold"
-          >「編集コメント」がある場合のみ</label
+          >「編集コメント」がある場合のみ(新規投稿時は通知されなくなります)</label
+        >
+      </div>
+      <div class="leading-8 mt-4">
+        <input
+          id="preserve_comments"
+          v-model="preserve_comments"
+          type="checkbox"
+          class="form-checkbox h-4 w-4"
+        />
+        <label for="preserve_comments" class="font-bold"
+          >HTMLコメント(&lt;!-- --&gt;)を削除しない</label
         >
       </div>
       <div class="border-t-2 mt-8 pt-8">
@@ -98,6 +109,7 @@
           folder: '',
           pretext: '',
           edit_comment: false,
+          preserve_comments: false,
         },
         computed: {
           url: function () {
@@ -113,6 +125,9 @@
             }
             if (this.edit_comment) {
               params.push(`edit_comment=1`)
+            }
+            if (this.preserve_comments) {
+              params.push(`preserve_comments=1`)
             }
             return `${location.origin}${location.pathname}webhook${
               params.length ? '?' + params.join('&') : ''

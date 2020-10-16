@@ -7,6 +7,7 @@ class Config(BaseModel):
     edit_comment: Optional[bool]
     folder: Optional[str]
     channel: Optional[str]
+    preserve_comments: Optional[bool]
 
 
 class Item(BaseModel):
