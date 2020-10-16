@@ -1,15 +1,16 @@
 import os
 import boto3
 
-ssm = boto3.client('ssm')
 
 if os.environ.get('SSM_SLACK_WEBHOOK_URL'):
+    ssm = boto3.client('ssm')
     SLACK_WEBHOOK_URL = ssm.get_parameter(Name=os.environ['SSM_SLACK_WEBHOOK_URL'],
                                           WithDecryption=True)['Parameter']['Value']
 else:
     SLACK_WEBHOOK_URL = os.environ['SLACK_WEBHOOK_URL']
 
 if os.environ.get('SSM_KIBELA_API_TOKEN'):
+    ssm = boto3.client('ssm')
     KIBELA_API_TOKEN = ssm.get_parameter(Name=os.environ['SSM_KIBELA_API_TOKEN'],
                                          WithDecryption=True)['Parameter']['Value']
 else:

@@ -73,3 +73,9 @@ poetry install
 ```
 poetry run uvicorn src.app:app --reload    
 ```
+
+開発用に Docker 環境も用意しています。
+
+```
+docker-compose up
+```
