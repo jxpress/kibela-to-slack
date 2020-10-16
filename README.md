@@ -7,6 +7,8 @@
 - フォルダごとの Slack チャンネルの打ち分け
 - Slack に投稿する文章のテンプレート化
 - 編集コメントつきな記事編集のみの通知
+- WIP とタイトルにある記事を通知しない
+- HTML コメントの自動的な削除
 
 ## 設定
 
@@ -14,7 +16,7 @@
 
 Kibela の Outgoing Webhook で「Slack」の Webhook を追加してください。
 
-URL には、次のような URL を指定します。URLのドメイン部は *.kibe.la ではなく、この OSS をデプロイした際の ドメインです。
+URL には、次のような URL を指定します。URLのドメイン部は *.kibe.la ではなく、この OSS をデプロイした際のドメインです(ローカル立ち上げ時であれば http://localhost:8000 です)。
 
 `https://your-deployment-url/webhook`
 
