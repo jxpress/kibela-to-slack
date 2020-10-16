@@ -18,6 +18,14 @@ def filter_edit_coment(item: Item, config: Config):
     return True
 
 
+def filter_draft(item: Item, config: Config):
+    if config.skip_draft and item.title:
+        return ('WIP' not in item.title
+                and 'Draft' not in item.title
+                and '下書き' not in item.title)
+    return True
+
+
 def convert_pretext(payload: dict, item: Item, config: Config):
     template = config.pretext
     if template:
@@ -36,7 +44,7 @@ def convert_trim_comment(payload: dict, item: Item, config: Config):
 
 
 Filter = Callable[[Item, Config], Any]
-filters: List[Filter] = [filter_folder, filter_edit_coment]
+filters: List[Filter] = [filter_folder, filter_edit_coment, filter_draft]
 
 Converter = Callable[[dict, Item, Config], Any]
 converters: List[Converter] = [convert_pretext, convert_channel, convert_trim_comment]

@@ -1,13 +1,14 @@
-from typing import Optional
+from typing import Any, Optional
 from pydantic import BaseModel
 
 
 class Config(BaseModel):
     pretext: Optional[str]
-    edit_comment: Optional[bool]
+    edit_comment: Optional[Any]
     folder: Optional[str]
     channel: Optional[str]
-    preserve_comments: Optional[bool]
+    preserve_comments: Optional[Any]
+    skip_draft: Optional[Any]
 
 
 class Item(BaseModel):

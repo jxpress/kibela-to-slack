@@ -49,13 +49,24 @@
       </div>
       <div class="leading-8 mt-4">
         <input
+          id="skip_draft"
+          v-model="skip_draft"
+          type="checkbox"
+          class="form-checkbox h-4 w-4"
+        />
+        <label for="skip_draft" class="font-bold"
+          >ドラフト版(タイトルに「WIP」「Draft」「下書き」を含むもの)を通知しない</label
+        >
+      </div>
+      <div class="leading-8 mt-4">
+        <input
           id="edit_comment"
           v-model="edit_comment"
           type="checkbox"
           class="form-checkbox h-4 w-4"
         />
         <label for="edit_comment" class="font-bold"
-          >「編集コメント」がある場合のみ(新規投稿時は通知されなくなります)</label
+          >更新時、「編集コメント」がある場合のみ通知(新規投稿時は通知されなくなります)</label
         >
       </div>
       <div class="leading-8 mt-4">
@@ -66,7 +77,7 @@
           class="form-checkbox h-4 w-4"
         />
         <label for="preserve_comments" class="font-bold"
-          >HTMLコメント(&lt;!-- --&gt;)を削除しない</label
+          >HTMLコメント(&lt;!-- --&gt;)を残す</label
         >
       </div>
       <div class="border-t-2 mt-8 pt-8">
@@ -122,6 +133,9 @@
             }
             if (this.pretext) {
               params.push(`pretext=${encodeURIComponent(this.pretext)}`)
+            }
+            if (this.skip_draft) {
+              params.push(`skip_draft=1`)
             }
             if (this.edit_comment) {
               params.push(`edit_comment=1`)
