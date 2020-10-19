@@ -22,6 +22,10 @@ URL には、次のような URL を指定します。URLのドメイン部は *
 
 URL パラメータを通じて、カスタマイズできます。 `https://your-deployment-url/` から URL を生成することもできます。
 
+![image](https://user-images.githubusercontent.com/623449/96398542-16b58d00-1207-11eb-878b-60c0a919c9fa.png)
+
+
+
 ### 環境変数
 
 次の環境変数の指定が必要です。
