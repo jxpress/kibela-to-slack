@@ -12,6 +12,12 @@ def filter_folder(item: Item, config: Config):
     return True
 
 
+def filter_title(item: Item, config: Config):
+    if config.title:
+        return item.title and config.title in item.title
+    return True
+
+
 def filter_edit_coment(item: Item, config: Config):
     if config.edit_comment:
         return item.edit_comment
@@ -45,7 +51,7 @@ def convert_trim_comment(payload: dict, item: Item, config: Config):
 
 
 Filter = Callable[[Item, Config], Any]
-filters: List[Filter] = [filter_folder, filter_edit_coment, filter_draft]
+filters: List[Filter] = [filter_folder, filter_title, filter_edit_coment, filter_draft]
 
 Converter = Callable[[dict, Item, Config], Any]
 converters: List[Converter] = [convert_pretext, convert_channel, convert_trim_comment]

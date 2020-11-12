@@ -6,6 +6,7 @@ class Config(BaseModel):
     pretext: Optional[str]
     edit_comment: Optional[Any]
     folder: Optional[str]
+    title: Optional[str]
     channel: Optional[str]
     preserve_comments: Optional[Any]
     skip_draft: Optional[Any]
