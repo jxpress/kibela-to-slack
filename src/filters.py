@@ -3,7 +3,7 @@ import re
 
 from .types import Config, Item
 
-comment_pattern = re.compile('<!--.*?-->')
+comment_pattern = re.compile('<!--.*?-->', re.DOTALL)
 
 
 def filter_folder(item: Item, config: Config):
@@ -38,6 +38,7 @@ def convert_channel(payload: dict, item: Item, config: Config):
 
 
 def convert_trim_comment(payload: dict, item: Item, config: Config):
+    print(payload['attachments'][0]['text'])
     if not config.preserve_comments and payload['attachments'][0]['text']:
         payload['attachments'][0]['text'] = comment_pattern.sub(
             '', payload['attachments'][0]['text'])
